@@ -35,7 +35,7 @@ contract("VotingDapp", ([creater, candidate1, candidate2, candidate3, candidate4
 		})
 		it("dapp has a name", async () => {
 			
-			assert.equal(votingName, "Best Voting Dapp")
+			assert.equal(votingName, "Voting Dapp")
 		})
 
 
@@ -54,8 +54,8 @@ contract("VotingDapp", ([creater, candidate1, candidate2, candidate3, candidate4
 
 		})
 		it('creates 2 elections', async () => {
-			election1 = await votingdapp.createElection(Id1, electionName1, registrationPeriod, votingPeriod, {from: creater})
-			election2 = await votingdapp.createElection(Id2, electionName2, registrationPeriod, votingPeriod, {from: creater})
+			election1 = await votingdapp.createElection(electionName1, registrationPeriod, votingPeriod, {from: creater})
+			election2 = await votingdapp.createElection(electionName2, registrationPeriod, votingPeriod, {from: creater})
 		})
 		it("emits ElectionCreated events", async () => {
 			expectEvent(election1, 'ElectionCreated', {
@@ -95,7 +95,7 @@ contract("VotingDapp", ([creater, candidate1, candidate2, candidate3, candidate4
 		})
 
 		it('emits CandidateRegistered events', async () => {
-			console.log("Election 1")
+			console.log("Election 1:")
 			expectEvent(candidateInstance1, 'CandidateRegistered', {
 				Id: new BN(1), 
 				Candidates: ([[name1,candidate1,"0"]])
@@ -106,8 +106,8 @@ contract("VotingDapp", ([creater, candidate1, candidate2, candidate3, candidate4
 				Id: new BN(1), 
 				Candidates: ([[name1,candidate1,"0"],[name2,candidate2,"0"]])
 			});
-			console.log("Election 2")
 			console.log('Alice registered')
+			console.log("Election 2:")
 			expectEvent(candidateInstance3, 'CandidateRegistered', {
 				Id: new BN(2), 
 				Candidates: ([[name3,candidate3,"0"]])

@@ -8,10 +8,14 @@
 
 
 pragma solidity 0.8.0;
+import "@openzeppelin/contracts/utils/Counters.sol";
 
 
 
 contract VotingDapp {
+
+    using Counters for Counters.Counter;
+    Counters.Counter public electionId;
     
     enum Status {
         Registration,
@@ -53,7 +57,9 @@ contract VotingDapp {
         
     }
     
-    function createElection(uint _id, string memory _name, uint registerPeriodInMinutes, uint votePeriodInMinutes) public {
+    function createElection(string memory _name, uint registerPeriodInMinutes, uint votePeriodInMinutes) public {
+        electionId.increment();
+        uint _id = electionId.current();
         uint _registerEnd = block.timestamp + (registerPeriodInMinutes * 60);
         uint _voteEnd = _registerEnd + (votePeriodInMinutes * 60);
         idToElection[_id].name = _name;
